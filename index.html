@@ -680,12 +680,12 @@
 
         <!-- Protected areas -->
         <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row">
-          <div class="flex items-center gap-3"><input type="checkbox" id="layer-protected-visible" checked><label for="layer-protected-visible" class="text-xs text-gray-600">Protected areas</label></div>
+          <div class="flex items-center gap-3"><input type="checkbox" id="layer-protected-areas-visible" checked><label for="layer-protected-areas-visible" class="text-xs text-gray-600">Protected areas</label></div>
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-protected-labels"></label>
-          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-protected-opacity" min="0" max="1" step="0.05" value="0.2" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-protected-areas-labels"></label>
+          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-protected-areas-opacity" min="0" max="1" step="0.05" value="0.2" class="ml-3 w-full"></label>
         </div>
 
         <!-- Rivers -->
@@ -2385,6 +2385,13 @@
               labelsEl.checked = false;
               applyLayout([labelLayerId], false);
             }
+            // When visibility changes, update legend rows and rebuild legend
+            const legendRows = document.querySelectorAll(`[data-legend-layer="${cfg.ui}"]`);
+            legendRows.forEach(row => {
+              row.style.display = ev.target.checked ? 'flex' : 'none';
+            });
+            // Also rebuild legend to ensure consistency
+            try { if (typeof createLegendFromLayers === 'function') createLegendFromLayers(); } catch (e) {}
           });
         }
 
@@ -2490,15 +2497,16 @@
       // Build a legend from the actual layer paint properties so swatches match the map
       function createLegendFromLayers() {
         const items = [
-          { label: 'Glaciers (polygons)', layerId: 'glaciers-fill', type: 'fill', outlineId: 'glaciers-outline' },
-          { label: 'Glacial lakes', layerId: 'glacial-lakes-fill', type: 'fill', outlineId: 'glacial-lakes-outline' },
-          { label: 'Protected areas', layerId: 'protected-areas-fill', type: 'fill', outlineId: 'protected-areas-outline' },
-          { label: 'Rivers', layerId: 'rivers-layer', type: 'line' },
-          { label: 'Roads', layerId: 'roads-layer', type: 'line' },
-          { label: 'Settlements', layerId: 'settlements-layer', type: 'circle' },
-          { label: 'Peaks', layerId: 'peaks-layer', type: 'circle' },
-          { label: 'Airports', layerId: 'airports-layer', type: 'circle' },
-          { label: 'Municipalities', layerId: 'municipalities-fill', type: 'fill', outlineId: 'municipalities-outline' }
+          { label: 'Glaciers (polygons)', layerId: 'glaciers-fill', type: 'fill', outlineId: 'glaciers-outline', ui: 'glaciers' },
+          { label: 'Glacial lakes', layerId: 'glacial-lakes-fill', type: 'fill', outlineId: 'glacial-lakes-outline', ui: 'glacial-lakes' },
+          { label: 'Protected areas', layerId: 'protected-areas-fill', type: 'fill', outlineId: 'protected-areas-outline', ui: 'protected-areas' },
+          { label: 'Rivers', layerId: 'rivers-layer', type: 'line', ui: 'rivers' },
+          { label: 'Roads', layerId: 'roads-layer', type: 'line', ui: 'roads' },
+          { label: 'Glacier Points', layerId: 'glacier-points-layer', type: 'circle', ui: 'glacier-points' },
+          { label: 'Settlements', layerId: 'settlements-layer', type: 'circle', ui: 'settlements' },
+          { label: 'Peaks', layerId: 'peaks-layer', type: 'circle', ui: 'peaks' },
+          { label: 'Airports', layerId: 'airports-layer', type: 'circle', ui: 'airports' },
+          { label: 'Municipalities', layerId: 'municipalities-outline', type: 'fill', outlineId: 'municipalities-outline', ui: 'municipalities' }
         ];
 
         const body = document.querySelector('#map-legend .panel-body');
@@ -2614,6 +2622,20 @@
 
           row.appendChild(iconWrap);
           row.appendChild(label);
+          
+          // Add data attribute for dynamic show/hide and set initial visibility
+          if (it.ui) {
+            row.setAttribute('data-legend-layer', it.ui);
+            try {
+              const firstLayerId = it.layerId;
+              const vis = map.getLayoutProperty(firstLayerId, 'visibility');
+              // layer is hidden if visibility is explicitly set to 'none'
+              if (vis === 'none') row.style.display = 'none';
+            } catch (e) {
+              // if error or layer not found, assume visible
+            }
+          }
+          
           body.appendChild(row);
         });
       }

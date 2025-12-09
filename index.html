@@ -708,28 +708,12 @@
 
       <div class="panel-sep my-3 border-t pt-3"></div>
 
-      <h4 class="text-xs font-medium text-slate-600 mb-2">Markers</h4>
-      <div class="space-y-2">
-        <label class="flex items-center gap-3"><input type="checkbox" id="marker-default-visible" checked> <span class="text-xs text-gray-600">Default marker</span></label>
-        <label class="flex items-center gap-3"><input type="checkbox" id="marker-png-visible" checked> <span class="text-xs text-gray-600">PNG marker</span></label>
-        <label class="flex items-center gap-3"><input type="checkbox" id="marker-html-visible" checked> <span class="text-xs text-gray-600">HTML marker</span></label>
-      </div>
 
       <div class="panel-sep my-4 border-t pt-3"></div>
       <div class="text-xs text-slate-600">Data sources</div>
       <div class="mt-2 text-xs text-slate-700">
-        <div class="data-logos flex gap-2 items-center mt-2">
-          <img src="logo/logo_cde.jpg" alt="Copernicus Master in Digital Earth logo" class="h-8 rounded bg-white p-1 shadow-sm" />
-          <img src="logo/uni-sbg-logo.png" alt="Paris Lodron University Salzburg logo" class="h-8 rounded bg-white p-1 shadow-sm" />
-          <img src="logo/upol_logo.png" alt="Palacký University Olomouc logo" class="h-8 rounded bg-white p-1 shadow-sm" />
+        <div class="data-credit mt-2 text-xs text-slate-700">Data Source: Survey Department, Department of Hydrology and Meteorology Nepal. 
         </div>
-        <div class="data-credit mt-2 text-xs text-slate-700">Map tiles © <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap contributors</a>
-          &nbsp;|&nbsp; Satellite © <a href="https://www.esri.com/en-us/home" target="_blank" rel="noopener">Esri</a>
-          &nbsp;|&nbsp; Data: <a href="data/municipalities_clipped.geojson" target="_blank">Municipalities (GeoJSON)</a>
-          &nbsp;|&nbsp; Icons: <code>marker.png</code>
-        </div>
-        <div class="mt-2 text-xs text-slate-500">Please respect each provider's terms of use and attribution requirements.</div>
-      </div>
     </div>
   </div>
 
@@ -877,7 +861,8 @@
       style: 'https://demotiles.maplibre.org/style.json',
       center: [ 85.8, 27.5],
       zoom: 10,
-      pitch: 0  // Start with 0 pitch, enable 3D only after terrain loads
+      pitch: 0,  // Start with 0 pitch, enable 3D only after terrain loads
+      preserveDrawingBuffer: true  // Required for canvas export (map screenshots)
     });
 
     // ------------------------- Simple Nominatim search -------------------------
@@ -1193,55 +1178,6 @@
     }); 
 
 
-    //------------------------------------markers------------------------------------  //
-      //default marker start
-      const markerDefault = new maplibregl.Marker()
-        .setLngLat([16.3725, 48.2084]);
-
-      markerDefault.addTo(map);
-      //default marker end
-
-      //custom marker png start
-      const el = document.createElement("div");
-      const img = document.createElement("img");
-      img.src = "./marker.png";
-      img.className = 'w-6 h-10';
-      el.appendChild(img);
-
-      const markerPNG  = new maplibregl.Marker({ element: el })
-        .setLngLat([16.0725, 48.0084])
-        .addTo(map);
-      //custom marker png end
-
-
-      //html marker start
-      const el1 = document.createElement("div");
-      el1.innerHTML = `
-        <div class="bg-orange-500 text-white px-2 py-1 rounded text-xs">HTML Marker</div>
-      `;
-      const markerHTML = new maplibregl.Marker({ element: el1 })
-        .setLngLat([15.8725, 48.2084])
-        .addTo(map);
-      //html marker end
-
-      // marker for user's location (set when Find my location is used)
-      let locationMarker = null;
-
-      
-     // -------------------------------marker popups-----------------------------------------  // 
-      // prevent polygon click when point marker is clicked
-      markerPNG.getElement().addEventListener("click", (e) => {
-        e.stopPropagation();       // prevents polygon popup
-        markerPNG.togglePopup();      // shows marker popup
-      });
-
-      //marker popup simple way to set popup
-      const popup = new maplibregl.Popup({ offset: 25 })
-        .setHTML("<h3>Marker Info</h3><p>This is a PNG marker.</p>");
-
-      // Attach popup to marker
-      markerPNG.setPopup(popup);
-
 
       // Function to build popup HTML content
       function buildPopupHTML(properties) {
@@ -1443,11 +1379,6 @@
     // Setup marker cursors after map load
     map.on("load", () => {
 
-    
-      const mdEl = markerDefault.getElement(); if (mdEl) mdEl.classList.add('cursor-pointer');
-      const mpEl = markerPNG.getElement(); if (mpEl) mpEl.classList.add('cursor-pointer');
-      const mhEl = markerHTML.getElement(); if (mhEl) mhEl.classList.add('cursor-pointer');
-
 
 
       // Add scale control (like Google Maps)
@@ -1550,77 +1481,24 @@
     // Unified export function supporting png, jpeg and pdf
     async function exportMap(format = 'png') {
       try {
-        // Prefer capturing the full page using html2canvas (works even when map canvas is tainted)
-        if (window.html2canvas) {
-          try {
-            const opts = { useCORS: true, logging: false, scale: Math.max(1, window.devicePixelRatio || 1) };
-            const pageCanvas = await html2canvas(document.body, opts);
+        // Wait for map to be fully rendered
+        await new Promise(resolve => setTimeout(resolve, 1500));
 
-            if (format === 'pdf') {
-              const dataUrl = pageCanvas.toDataURL('image/png');
-              const jsPDFClass = (window.jspdf && window.jspdf.jsPDF) ? window.jspdf.jsPDF : (window.jsPDF ? window.jsPDF : null);
-              if (!jsPDFClass) {
-                alert('PDF export requires jsPDF. Please check your internet connection.');
-                return;
-              }
-              const img = new Image();
-              img.src = dataUrl;
-              img.onload = () => {
-                const imgW = img.width;
-                const imgH = img.height;
-                const imgRatio = imgW / imgH;
-                const pdf = new jsPDFClass({ unit: 'pt', format: 'a4' });
-                const pageW = pdf.internal.pageSize.getWidth();
-                const pageH = pdf.internal.pageSize.getHeight();
-                let renderW = pageW;
-                let renderH = pageW / imgRatio;
-                if (renderH > pageH) { renderH = pageH; renderW = pageH * imgRatio; }
-                const marginX = (pageW - renderW) / 2;
-                const marginY = (pageH - renderH) / 2;
-                pdf.addImage(dataUrl, 'PNG', marginX, marginY, renderW, renderH);
-                pdf.save('map.pdf');
-              };
-              img.onerror = (e) => { console.error('PDF image load error', e); alert('PDF export failed (image load).'); };
-              return;
-            }
+        // Get the actual WebGL canvas from MapLibre
+        const mapCanvas = map.getCanvas();
+        if (!mapCanvas) throw new Error('Map canvas not available');
 
-            // PNG / JPEG
-            const mime = format === 'jpeg' ? 'image/jpeg' : 'image/png';
-            const quality = format === 'jpeg' ? 0.92 : undefined;
-            if (pageCanvas.toBlob) {
-              pageCanvas.toBlob((blob) => {
-                if (!blob) throw new Error('Failed to generate image blob');
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `map.${format === 'jpeg' ? 'jpg' : 'png'}`;
-                document.body.appendChild(link);
-                link.click();
-                link.remove();
-                setTimeout(() => URL.revokeObjectURL(url), 1000);
-              }, mime, quality);
-            } else {
-              const dataUrl = mime === 'image/png' ? pageCanvas.toDataURL('image/png') : pageCanvas.toDataURL('image/jpeg', quality);
-              const link = document.createElement('a');
-              link.href = dataUrl;
-              link.download = `map.${format === 'jpeg' ? 'jpg' : 'png'}`;
-              document.body.appendChild(link);
-              link.click();
-              link.remove();
-            }
-            return;
-          } catch (e) {
-            console.warn('html2canvas capture failed, falling back to map canvas capture', e);
-            // fallthrough to map canvas approach below
-          }
-        }
-
-        // Fallback: export map canvas (may fail if canvas is tainted by cross-origin tiles)
-        const canvas = map.getCanvas();
-        if (!canvas) throw new Error('Map canvas not available');
+        // Create a new canvas and copy the map canvas content
+        const exportCanvas = document.createElement('canvas');
+        exportCanvas.width = mapCanvas.width;
+        exportCanvas.height = mapCanvas.height;
+        const ctx = exportCanvas.getContext('2d');
+        
+        // Copy the WebGL canvas to the 2D canvas
+        ctx.drawImage(mapCanvas, 0, 0);
 
         if (format === 'pdf') {
-          const dataUrl = canvas.toDataURL('image/png');
+          const dataUrl = exportCanvas.toDataURL('image/png');
           const jsPDFClass = (window.jspdf && window.jspdf.jsPDF) ? window.jspdf.jsPDF : (window.jsPDF ? window.jsPDF : null);
           if (!jsPDFClass) { alert('PDF export requires jsPDF. Please check your internet connection.'); return; }
           const img = new Image();
@@ -1640,20 +1518,20 @@
 
         const mime = format === 'jpeg' ? 'image/jpeg' : 'image/png';
         const quality = format === 'jpeg' ? 0.92 : undefined;
-        if (canvas.toBlob) {
-          canvas.toBlob((blob) => {
+        if (exportCanvas.toBlob) {
+          exportCanvas.toBlob((blob) => {
             if (!blob) throw new Error('Failed to generate image blob');
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url; link.download = `map.${format === 'jpeg' ? 'jpg' : 'png'}`; document.body.appendChild(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
           }, mime, quality);
         } else {
-          const dataUrl = mime === 'image/png' ? canvas.toDataURL('image/png') : canvas.toDataURL('image/jpeg', quality);
+          const dataUrl = mime === 'image/png' ? exportCanvas.toDataURL('image/png') : exportCanvas.toDataURL('image/jpeg', quality);
           const link = document.createElement('a'); link.href = dataUrl; link.download = `map.${format === 'jpeg' ? 'jpg' : 'png'}`; document.body.appendChild(link); link.click(); link.remove();
         }
       } catch (err) {
         console.error('Export failed:', err);
-        alert('Export failed. This usually happens when map tiles are loaded from servers that do not send CORS headers, which taints the canvas and prevents image export.\n\nPossible fixes:\n- Use a tile provider that supports CORS (with Access-Control-Allow-Origin).\n- Run a local tile proxy or self-host tiles.\n- Use a hosted map style that allows exporting.\n\nSee the console for the exact error.');
+        alert('Export failed: ' + err.message);
       }
 
     }

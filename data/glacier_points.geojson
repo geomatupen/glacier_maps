@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "glacier_points",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32645" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 1, "Name": "Thulagi Glacial Lake" }, "geometry": { "type": "Point", "coordinates": [ 253537.999010940635344, 3155989.233825623989105 ] } },
+{ "type": "Feature", "properties": { "id": 2, "Name": "Lumding Tsho Glacial Lake" }, "geometry": { "type": "Point", "coordinates": [ 460202.546739136625547, 3073660.047799039166421 ] } },
+{ "type": "Feature", "properties": { "id": 3, "Name": "Hongu 2 Glacial Lake" }, "geometry": { "type": "Point", "coordinates": [ 494501.526746176823508, 3074021.159193958621472 ] } },
+{ "type": "Feature", "properties": { "id": 4, "Name": "Lower Barun Glacial Lake" }, "geometry": { "type": "Point", "coordinates": [ 506672.294215411704499, 3076145.972370715346187 ] } }
+]
+}

@@ -587,114 +587,94 @@
 
       <h4 class="text-xs font-semibold text-slate-600 mt-3 mb-2">Overlay Layers</h4>
       <div class="space-y-xs">
-        <!-- Amenities -->
-        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row" >
-          <div class="flex items-center gap-3"><input type="checkbox" id="layer-amenities-visible" checked><label for="layer-amenities-visible" class="text-xs text-gray-600">Amenities</label></div>
+        <!-- Glaciers (polygons) -->
+        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row">
+          <div class="flex items-center gap-3"><input type="checkbox" id="layer-glaciers-visible" checked><label for="layer-glaciers-visible" class="text-xs text-gray-600">Glaciers (polygons)</label></div>
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-amenities-labels"></label>
-          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-amenities-opacity" min="0" max="1" step="0.05" value="0.9" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-glaciers-opacity" min="0" max="1" step="0.05" value="0.25" class="ml-3 w-full"></label>
         </div>
 
-        <!-- Buildings (controls both extrusion and outline) -->
-        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row" >
-          <div class="flex items-center gap-3"><input type="checkbox" id="layer-buildings-visible" checked><label for="layer-buildings-visible" class="text-xs text-gray-600">Buildings</label></div>
+        <!-- Glacial lakes (polygons) -->
+        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row">
+          <div class="flex items-center gap-3"><input type="checkbox" id="layer-glacial-lakes-visible" checked><label for="layer-glacial-lakes-visible" class="text-xs text-gray-600">Glacial lakes</label></div>
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-buildings-labels"></label>
-          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-buildings-opacity" min="0" max="1" step="0.05" value="0.95" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-glacial-lakes-opacity" min="0" max="1" step="0.05" value="0.35" class="ml-3 w-full"></label>
         </div>
 
-        <!-- Streets -->
-        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row" >
-          <div class="flex items-center gap-3"><input type="checkbox" id="layer-streets-visible" checked><label for="layer-streets-visible" class="text-xs text-gray-600">Streets</label></div>
+        <!-- Glacier points -->
+        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row">
+          <div class="flex items-center gap-3"><input type="checkbox" id="layer-glacier-points-visible" checked><label for="layer-glacier-points-visible" class="text-xs text-gray-600">Glacier points</label></div>
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-streets-labels"></label>
-          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-streets-opacity" min="0" max="1" step="0.05" value="1" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-glacier-points-opacity" min="0" max="1" step="0.05" value="0.9" class="ml-3 w-full"></label>
         </div>
 
-        <!-- Railway -->
-        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row" >
-          <div class="flex items-center gap-3"><input type="checkbox" id="layer-railway-visible" checked><label for="layer-railway-visible" class="text-xs text-gray-600">Railway</label></div>
+        <!-- Peaks (points) -->
+        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row">
+          <div class="flex items-center gap-3"><input type="checkbox" id="layer-peaks-visible" checked><label for="layer-peaks-visible" class="text-xs text-gray-600">Peaks</label></div>
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-railway-labels"></label>
-          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-railway-opacity" min="0" max="1" step="0.05" value="1" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-peaks-opacity" min="0" max="1" step="0.05" value="0.9" class="ml-3 w-full"></label>
+        </div>
+
+        <!-- Settlements (points) -->
+        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row">
+          <div class="flex items-center gap-3"><input type="checkbox" id="layer-settlements-visible" checked><label for="layer-settlements-visible" class="text-xs text-gray-600">Settlements</label></div>
+          <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+        </div>
+        <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-settlements-opacity" min="0" max="1" step="0.05" value="0.9" class="ml-3 w-full"></label>
+        </div>
+
+        <!-- Airports -->
+        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row">
+          <div class="flex items-center gap-3"><input type="checkbox" id="layer-airports-visible" checked><label for="layer-airports-visible" class="text-xs text-gray-600">Airports</label></div>
+          <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+        </div>
+        <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-airports-opacity" min="0" max="1" step="0.05" value="0.9" class="ml-3 w-full"></label>
+        </div>
+
+        <!-- Protected areas -->
+        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row">
+          <div class="flex items-center gap-3"><input type="checkbox" id="layer-protected-visible" checked><label for="layer-protected-visible" class="text-xs text-gray-600">Protected areas</label></div>
+          <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+        </div>
+        <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-protected-opacity" min="0" max="1" step="0.05" value="0.2" class="ml-3 w-full"></label>
         </div>
 
         <!-- Rivers -->
-        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row" >
+        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row">
           <div class="flex items-center gap-3"><input type="checkbox" id="layer-rivers-visible" checked><label for="layer-rivers-visible" class="text-xs text-gray-600">Rivers</label></div>
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-rivers-labels"></label>
-          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-rivers-opacity" min="0" max="1" step="0.05" value="1" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-rivers-opacity" min="0" max="1" step="0.05" value="1" class="ml-3 w-full"></label>
         </div>
 
-        <!-- Education -->
-        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row" >
-          <div class="flex items-center gap-3"><input type="checkbox" id="layer-education-visible" checked><label for="layer-education-visible" class="text-xs text-gray-600">Education</label></div>
+        <!-- Roads -->
+        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row">
+          <div class="flex items-center gap-3"><input type="checkbox" id="layer-roads-visible" checked><label for="layer-roads-visible" class="text-xs text-gray-600">Roads</label></div>
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-education-labels"></label>
-          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-education-opacity" min="0" max="1" step="0.05" value="0.85" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-roads-opacity" min="0" max="1" step="0.05" value="1" class="ml-3 w-full"></label>
         </div>
 
-        <!-- Health -->
-        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row" >
-          <div class="flex items-center gap-3"><input type="checkbox" id="layer-health-visible" checked><label for="layer-health-visible" class="text-xs text-gray-600">Health</label></div>
+        <!-- Municipalities (boundary) -->
+        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row">
+          <div class="flex items-center gap-3"><input type="checkbox" id="layer-municipalities-visible" checked><label for="layer-municipalities-visible" class="text-xs text-gray-600">Municipalities</label></div>
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-health-labels"></label>
-          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-health-opacity" min="0" max="1" step="0.05" value="0.85" class="ml-3 w-full"></label>
-        </div>
-
-        <!-- Restaurants -->
-        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row" >
-          <div class="flex items-center gap-3"><input type="checkbox" id="layer-restaurants-visible" checked><label for="layer-restaurants-visible" class="text-xs text-gray-600">Restaurants</label></div>
-          <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
-        </div>
-        <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-restaurants-labels"></label>
-          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-restaurants-opacity" min="0" max="1" step="0.05" value="0.85" class="ml-3 w-full"></label>
-        </div>
-
-        <!-- Tourism -->
-        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row" >
-          <div class="flex items-center gap-3"><input type="checkbox" id="layer-tourism-visible" checked><label for="layer-tourism-visible" class="text-xs text-gray-600">Tourism</label></div>
-          <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
-        </div>
-        <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-tourism-labels"></label>
-          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-tourism-opacity" min="0" max="1" step="0.05" value="0.85" class="ml-3 w-full"></label>
-        </div>
-
-        <!-- Transportation -->
-        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition layer-row" >
-          <div class="flex items-center gap-3"><input type="checkbox" id="layer-transportation-visible" checked><label for="layer-transportation-visible" class="text-xs text-gray-600">Transportation</label></div>
-          <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
-        </div>
-        <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-transportation-labels"></label>
-          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-transportation-opacity" min="0" max="1" step="0.05" value="0.85" class="ml-3 w-full"></label>
-        </div>
-
-        <!-- Salzburg boundary -->
-        <div class="flex items-center justify-between bg-white/60 rounded hover:bg-sky-50 hover:-translate-y-0.5 transform transition" >
-          <div class="flex items-center gap-3"><input type="checkbox" id="layer-salzburg-boundaries-visible" checked><label for="layer-salzburg-boundaries-visible" class="text-xs text-gray-600">Salzburg boundary</label></div>
-          <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
-        </div>
-        <div class="layer-menu hidden mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-salzburg-boundaries-labels"></label>
-          <label class="flex items-center justify-between gap-2 mt-2"><span>Opacity</span><input type="range" id="layer-salzburg-boundaries-opacity" min="0" max="1" step="0.05" value="1" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-municipalities-opacity" min="0" max="1" step="0.05" value="1" class="ml-3 w-full"></label>
         </div>
       </div>
 
@@ -717,7 +697,7 @@
         </div>
         <div class="data-credit mt-2 text-xs text-slate-700">Map tiles © <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap contributors</a>
           &nbsp;|&nbsp; Satellite © <a href="https://www.esri.com/en-us/home" target="_blank" rel="noopener">Esri</a>
-          &nbsp;|&nbsp; Data: <a href="data/austria-demography-simplified-wgs84.geojson" target="_blank">Austria demography (GeoJSON)</a>
+          &nbsp;|&nbsp; Data: <a href="data/municipalities_clipped.geojson" target="_blank">Municipalities (GeoJSON)</a>
           &nbsp;|&nbsp; Icons: <code>marker.png</code>
         </div>
         <div class="mt-2 text-xs text-slate-500">Please respect each provider's terms of use and attribution requirements.</div>
@@ -859,6 +839,7 @@
 
   <script src="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.8.0/proj4.js"></script>
   <script>
     //map initialization
     // Use a minimal/empty style so our raster OSM layer becomes the visible basemap
@@ -869,8 +850,8 @@
         sources: {},
         layers: []
       },
-      center: [13.033229, 47.811195],
-      zoom: 15,
+      center: [ 85.8, 27.5],
+      zoom: 10,
       pitch: 45
     });
 
@@ -1014,260 +995,103 @@
         layout: { 'visibility': 'none' }
       });
 
-      map.addSource("amenities", {
-        type: "geojson",
-        data: "data/amenities.geojson"
-      });
+      // Create empty GeoJSON sources for the replaced project datasets. We'll fetch and
+      // populate them dynamically and reproject if needed (some datasets come in UTM/SRID other than WGS84).
+      const emptyFC = { type: 'FeatureCollection', features: [] };
 
-      map.addSource("buildings", {
-        type: "geojson",
-        data: "data/buildings.geojson"
-      });
+      const newSources = ['glaciers','glacial-lakes','glacier-points','peaks','settlements','airports','protected-areas','rivers','roads','municipalities'];
+      newSources.forEach(s => map.addSource(s, { type: 'geojson', data: emptyFC }));
 
-      map.addSource("railway", {
-        type: "geojson",
-        data: "data/railway.geojson"
-      });
+      // Layers: polygons first (fills), then outlines and lines, then points.
+      map.addLayer({ id: 'glaciers-fill', type: 'fill', source: 'glaciers', paint: { 'fill-color': '#2A77ED', 'fill-opacity': 0.25 } });
+      map.addLayer({ id: 'glaciers-outline', type: 'line', source: 'glaciers', paint: { 'line-color': '#1f4b8f', 'line-width': 1.8 } });
 
-      map.addSource("salzburg-boundaries", {
-        type: "geojson",
-        data: "data/Salzburg_Boundaries.geojson"
-      });
+      map.addLayer({ id: 'glacial-lakes-fill', type: 'fill', source: 'glacial-lakes', paint: { 'fill-color': '#16a085', 'fill-opacity': 0.35 } });
+      map.addLayer({ id: 'glacial-lakes-outline', type: 'line', source: 'glacial-lakes', paint: { 'line-color': '#0f7760', 'line-width': 1.5 } });
 
-      map.addSource("streets", {
-        type: "geojson",
-        data: "data/streets.geojson"
-      });
+      map.addLayer({ id: 'protected-areas-fill', type: 'fill', source: 'protected-areas', paint: { 'fill-color': '#16a085', 'fill-opacity': 0.14 } });
+      map.addLayer({ id: 'protected-areas-outline', type: 'line', source: 'protected-areas', paint: { 'line-color': '#0f7760', 'line-width': 1 } });
 
-      map.addSource("education", {
-        type: "geojson",
-        data: "data/Education.geojson"
-      });
+      map.addLayer({ id: 'municipalities-outline', type: 'line', source: 'municipalities', paint: { 'line-color': '#34495e', 'line-width': 1.6 } });
 
-      map.addSource("health", {
-        type: "geojson",
-        data: "data/Health.geojson"
-      });
+      map.addLayer({ id: 'rivers-layer', type: 'line', source: 'rivers', paint: { 'line-color': '#2A77ED', 'line-width': 2 } });
+      map.addLayer({ id: 'roads-layer', type: 'line', source: 'roads', paint: { 'line-color': '#EDA02A', 'line-width': 1.6 } });
 
-      map.addSource("restaurants", {
-        type: "geojson",
-        data: "data/Restaurants.geojson"
-      });
+      // Points
+      map.addLayer({ id: 'glacier-points-layer', type: 'circle', source: 'glacier-points', paint: { 'circle-radius': 5, 'circle-color': '#2A77ED', 'circle-opacity': 0.9 } });
+      map.addLayer({ id: 'peaks-layer', type: 'circle', source: 'peaks', paint: { 'circle-radius': 4, 'circle-color': '#ED2AD8', 'circle-opacity': 0.95 } });
+      map.addLayer({ id: 'settlements-layer', type: 'circle', source: 'settlements', paint: { 'circle-radius': 4, 'circle-color': '#34495e', 'circle-opacity': 0.9 } });
+      map.addLayer({ id: 'airports-layer', type: 'circle', source: 'airports', paint: { 'circle-radius': 6, 'circle-color': '#e67e22', 'circle-opacity': 0.95 } });
 
-      map.addSource("rivers", {
-        type: "geojson",
-        data: "data/rivers.geojson"
-      });
+      // Helper: reproject GeoJSON to EPSG:4326 when necessary using proj4.
+      function getEpsgFromCrs(gj) {
+        try {
+          if (!gj || !gj.crs || !gj.crs.properties || !gj.crs.properties.name) return null;
+          return gj.crs.properties.name; // e.g. 'urn:ogc:def:crs:EPSG::32645' or 'urn:ogc:def:crs:OGC:1.3:CRS84'
+        } catch (e) { return null; }
+      }
 
-      map.addSource("tourism", {
-        type: "geojson",
-        data: "data/Tourism.geojson"
-      });
+      // Define proj4 defs we know are used in these files. Add more if needed.
+      if (typeof proj4 !== 'undefined') {
+        try { proj4.defs('EPSG:32645', '+proj=utm +zone=45 +datum=WGS84 +units=m +no_defs'); } catch (e) {}
+      }
 
-      map.addSource("transportation", {
-        type: "geojson",
-        data: "data/Transportation.geojson"
-      });
+      function reprojectGeoJSON(gj) {
+        if (!gj || !gj.type) return gj;
+        const crs = getEpsgFromCrs(gj);
+        // If CRS indicates WGS84 / CRS84 / EPSG:4326, assume coordinates are lon/lat already.
+        if (!crs) return gj;
+        const lower = (crs + '').toLowerCase();
+        if (lower.includes('crs84') || lower.includes('epsg:4326') || lower.includes('epsg::4326')) return gj;
 
-      // Add layers for amenities (points) - normalized to project brand colors
-      map.addLayer({
-        id: "amenities-layer",
-        type: "circle",
-        source: "amenities",
-        paint: {
-          "circle-radius": 6,
-          "circle-color": "#16a085",
-          "circle-opacity": 0.9
+        // Try to extract EPSG code
+        const m = crs.match(/(epsg[:]{0,1}[:]{0,1})(\d+)/i) || crs.match(/::(\d+)$/);
+        let code = null;
+        if (m) code = 'EPSG:' + (m[2] || m[1]);
+        if (!code) return gj;
+        if (typeof proj4 === 'undefined') return gj;
+
+        const from = code;
+        const to = 'EPSG:4326';
+
+        function reprojectCoords(coords) {
+          if (typeof coords[0] === 'number' && typeof coords[1] === 'number') {
+            return proj4(from, to, coords);
+          }
+          return coords.map(reprojectCoords);
         }
-      });
 
-      // Add extruded buildings (small height) to give subtle 3D
-      map.addLayer({
-        id: "buildings-layer",
-        type: "fill-extrusion",
-        source: "buildings",
-        paint: {
-          "fill-extrusion-color": "#e67e22",
-          // Compute height from building:levels (levels * 3m). Use a higher
-          // fallback (3 levels) and enforce a visible minimum height (6m).
-          // Expression: max( coalesce(to-number(get('building:levels')), 3) * 3, 6 )
-          "fill-extrusion-height": [
-            "max",
-            [
-              "*",
-              ["coalesce", ["to-number", ["get", "building:levels"]], 3],
-              3
-            ],
-            6
-          ],
-          "fill-extrusion-base": 0,
-          "fill-extrusion-opacity": 0.95
-        }
-      });
+        const out = JSON.parse(JSON.stringify(gj));
+        out.features = (out.features || []).map(f => {
+          if (!f.geometry) return f;
+          f.geometry.coordinates = reprojectCoords(f.geometry.coordinates);
+          return f;
+        });
+        return out;
+      }
 
-      // Add stroke/outline for buildings (keeps map readable at low zoom) - leave buildings colors unchanged
-      map.addLayer({
-        id: "buildings-outline",
-        type: "line",
-        source: "buildings",
-        paint: {
-          "line-color": "#d35400",
-          "line-width": 1
-        }
-      });
+      // fetch and populate each source file, reprojecting if necessary
+      const fetchList = [
+        { src: 'glaciers', url: 'data/glaciers_polygon.geojson' },
+        { src: 'glacial-lakes', url: 'data/glacial_lake_polygon.geojson' },
+        { src: 'glacier-points', url: 'data/glacier_points.geojson' },
+        { src: 'peaks', url: 'data/peaks.geojson' },
+        { src: 'settlements', url: 'data/settlements.geojson' },
+        { src: 'airports', url: 'data/airports.geojson' },
+        { src: 'protected-areas', url: 'data/protected_areas.geojson' },
+        { src: 'rivers', url: 'data/rivers.geojson' },
+        { src: 'roads', url: 'data/roads.geojson' },
+        { src: 'municipalities', url: 'data/municipalities_clipped.geojson' }
+      ];
 
-      // Add layers for railway (lines)
-      map.addLayer({
-        id: "railway-layer",
-        type: "line",
-        source: "railway",
-        paint: {
-          "line-color": "#ED2AD8",
-          "line-width": 1
-        }
-      });
-
-      // Add layers for Salzburg boundaries: transparent interior, visible border only
-      map.addLayer({
-        id: "salzburg-boundaries-layer",
-        type: "fill",
-        source: "salzburg-boundaries",
-        paint: {
-          // keep interior fully transparent so it doesn't interfere with popups
-          "fill-color": "rgba(0,0,0,0)",
-          "fill-opacity": 0
-        }
-      });
-
-      // Outline for Salzburg boundaries (visible)
-      map.addLayer({
-        id: "salzburg-boundaries-outline",
-        type: "line",
-        source: "salzburg-boundaries",
-        paint: {
-          "line-color": "#34495e",
-          "line-width": 2
-        }
-      });
-
-      // Streets types Coloring - normalized to brand colors
-      map.addLayer({
-        id: "streets-layer",
-        type: "line",
-        source: "streets",
-        paint: {
-          // Color by highway type (lively palette). Default gray if not matched.
-          "line-color": [
-            "match",
-            ["get", "highway"],
-            "motorway", "#EDA02A",
-            "motorway_link", "#EDA02A",
-            "primary", "#EDA02A",
-            "secondary", "#EDA02A",
-            "tertiary", "#EDA02A",
-            "primary_link", "#EDA02A",
-            "tertiary_link", "#EDA02A",
-            "residential", "#ED2AD8",
-            "living_street", "#16a085",
-            "service", "#16a085",
-            "unclassified", "#16a085",
-            "cycleway", "#16a085",
-            "path", "#2A77ED",
-            "pedestrian", "#2A77ED",
-            "#95a5a6"
-          ],
-          // Widths: larger for main roads, smaller for paths
-          "line-width": [
-            "match",
-            ["get", "highway"],
-            "motorway", 5,
-            "motorway_link", 4.5,
-            "primary", 4,
-            "primary_link", 3.8,
-            "secondary", 3,
-            "tertiary", 2.4,
-            "tertiary_link", 2.2,
-            "residential", 1.8,
-            "living_street", 1.6,
-            "service", 1.4,
-            "unclassified", 1.2,
-            "cycleway", 1.2,
-            "path", 1,
-            "pedestrian", 1,
-            1.2
-          ]
-        }
-      });
-
-      // Add rivers (lines)
-      map.addLayer({
-        id: "rivers-layer",
-        type: "line",
-        source: "rivers",
-        paint: {
-          "line-color": "#2A77ED",
-          "line-width": 2
-        }
-      });
-
-      // Add education POIs (points)
-      map.addLayer({
-        id: "education-layer",
-        type: "circle",
-        source: "education",
-        paint: {
-          "circle-radius": 5,
-          "circle-color": "#EDA02A",
-          "circle-opacity": 0.85
-        }
-      });
-
-      // Add health POIs (points)
-      map.addLayer({
-        id: "health-layer",
-        type: "circle",
-        source: "health",
-        paint: {
-          "circle-radius": 5,
-          "circle-color": "#ED2AD8",
-          "circle-opacity": 0.85
-        }
-      });
-
-      // Add restaurants POIs (points)
-      map.addLayer({
-        id: "restaurants-layer",
-        type: "circle",
-        source: "restaurants",
-        paint: {
-          "circle-radius": 5,
-          "circle-color": "#EDA02A",
-          "circle-opacity": 0.85
-        }
-      });
-
-      // Add tourism POIs (points)
-      map.addLayer({
-        id: "tourism-layer",
-        type: "circle",
-        source: "tourism",
-        paint: {
-          "circle-radius": 5,
-          "circle-color": "#ED2AD8",
-          "circle-opacity": 0.85
-        }
-      });
-
-      // Add transportation POIs (points)
-      map.addLayer({
-        id: "transportation-layer",
-        type: "circle",
-        source: "transportation",
-        paint: {
-          "circle-radius": 5,
-          "circle-color": "#16a085",
-          "circle-opacity": 0.85
-        }
+      fetchList.forEach(item => {
+        fetch(item.url).then(r => r.json()).then(j => {
+          try {
+            const out = reprojectGeoJSON(j);
+            const s = map.getSource(item.src);
+            if (s) s.setData(out);
+          } catch (e) { console.warn('Failed to set data for', item.src, e); }
+        }).catch(err => { console.warn('Could not load', item.url, err); });
       });
 
       // Wire up radio buttons to toggle the base layers
@@ -1400,18 +1224,17 @@
         `;
     }
 
-    // Add click events for layers to show popups (excluding salzburg-boundaries-layer)
+    // Add click events for layers to show popups
     const layersWithPopups = [
-      "amenities-layer",
-      "buildings-layer",
-      "railway-layer",
-      "streets-layer",
-      "rivers-layer",
-      "education-layer",
-      "health-layer",
-      "restaurants-layer",
-      "tourism-layer",
-      "transportation-layer"
+      'glacier-points-layer',
+      'peaks-layer',
+      'settlements-layer',
+      'airports-layer',
+      'rivers-layer',
+      'roads-layer',
+      'glaciers-outline',
+      'glacial-lakes-outline',
+      'protected-areas-outline'
     ];
 
     layersWithPopups.forEach(layerId => {
@@ -1428,16 +1251,18 @@
     // Exclude Salzburg boundary layers from interactive queries so the transparent interior
     // does not appear in popups or the layer dropdown.
     const allInteractiveLayers = [
-      "amenities-layer",
-      "buildings-layer",
-      "railway-layer",
-      "streets-layer",
-      "rivers-layer",
-      "education-layer",
-      "health-layer",
-      "restaurants-layer",
-      "tourism-layer",
-      "transportation-layer"
+      'glacier-points-layer',
+      'peaks-layer',
+      'settlements-layer',
+      'airports-layer',
+      'rivers-layer',
+      'roads-layer',
+      'glaciers-fill',
+      'glaciers-outline',
+      'glacial-lakes-fill',
+      'glacial-lakes-outline',
+      'protected-areas-fill',
+      'protected-areas-outline'
     ];
 
     map.on("click", (e) => {
@@ -1453,8 +1278,8 @@
         const topLayerId = uniqueLayers[0];
         const topFeature = features.find(f => f.layer.id === topLayerId);
         
-        // Only show popup if top layer is not salzburg boundaries
-        if (topLayerId !== "salzburg-boundaries-layer" && topLayerId !== "salzburg-boundaries-outline") {
+        // Only show popup if top layer is not a municipality boundary (we keep boundaries non-interactive)
+        if (topLayerId !== "municipalities-outline") {
           let popupHTML = buildPopupHTML(topFeature.properties);
           
           // Add dropdown if multiple layers
@@ -1490,7 +1315,7 @@
                   const selectedLayerId = uniqueLayers[selectedIdx];
                   const selectedFeature = features.find(f => f.layer.id === selectedLayerId);
                   
-                  if (selectedFeature && selectedLayerId !== "salzburg-boundaries-layer" && selectedLayerId !== "salzburg-boundaries-outline") {
+                  if (selectedFeature && selectedLayerId !== "municipalities-outline") {
                     popup.remove();
                     let newPopupHTML = buildPopupHTML(selectedFeature.properties);
                     
@@ -1540,7 +1365,7 @@
     // Change cursor to pointer when hovering over interactive layers
     map.on("mousemove", (e) => {
       const features = map.queryRenderedFeatures(e.point, {
-        layers: ["amenities-layer", "buildings-layer", "railway-layer", "streets-layer", "rivers-layer", "education-layer", "health-layer", "restaurants-layer", "tourism-layer", "transportation-layer"]
+        layers: ['glacier-points-layer','peaks-layer','settlements-layer','airports-layer','rivers-layer','roads-layer','glaciers-fill','glaciers-outline','glacial-lakes-fill','glacial-lakes-outline','protected-areas-fill','protected-areas-outline']
       });
 
       if (features.length) {
@@ -1586,7 +1411,7 @@
 
     // ---------------------- Proximity analysis logic ----------------------
     let regionsGeo = null;
-    fetch('data/austria-demography-simplified-wgs84.geojson')
+    fetch('data/municipalities_clipped.geojson')
       .then(r => r.json())
       .then(j => { regionsGeo = j; })
       .catch(err => { console.warn('Could not load regions GeoJSON for proximity:', err); });
@@ -2008,7 +1833,7 @@
 
     async function zoomToExtent() {
       try {
-        const url = 'data/austria-demography-simplified-wgs84.geojson';
+        const url = 'data/municipalities_clipped.geojson';
         const resp = await fetch(url);
         if (!resp.ok) throw new Error('Failed to fetch GeoJSON: ' + resp.status);
         const geojson = await resp.json();
@@ -2275,17 +2100,16 @@
     // Runs once the map is idle so all sources/layers are available.
     map.once('idle', () => {
       const configs = [
-        { layers: [{ id: 'amenities-layer', paintKey: 'circle-opacity' }], source: 'amenities', ui: 'amenities', defaultOpacity: 0.9 },
-        { layers: [{ id: 'buildings-layer', paintKey: 'fill-extrusion-opacity' }, { id: 'buildings-outline', paintKey: 'line-opacity' }], source: 'buildings', ui: 'buildings', defaultOpacity: 0.95 },
-        { layers: [{ id: 'streets-layer', paintKey: 'line-opacity' }], source: 'streets', ui: 'streets', defaultOpacity: 1 },
-        { layers: [{ id: 'railway-layer', paintKey: 'line-opacity' }], source: 'railway', ui: 'railway', defaultOpacity: 1 },
+        { layers: [{ id: 'glaciers-fill', paintKey: 'fill-opacity' }, { id: 'glaciers-outline', paintKey: 'line-opacity' }], source: 'glaciers', ui: 'glaciers', defaultOpacity: 0.25 },
+        { layers: [{ id: 'glacial-lakes-fill', paintKey: 'fill-opacity' }, { id: 'glacial-lakes-outline', paintKey: 'line-opacity' }], source: 'glacial-lakes', ui: 'glacial-lakes', defaultOpacity: 0.35 },
+        { layers: [{ id: 'protected-areas-fill', paintKey: 'fill-opacity' }, { id: 'protected-areas-outline', paintKey: 'line-opacity' }], source: 'protected-areas', ui: 'protected-areas', defaultOpacity: 0.14 },
+        { layers: [{ id: 'municipalities-outline', paintKey: 'line-opacity' }], source: 'municipalities', ui: 'municipalities', defaultOpacity: 1 },
         { layers: [{ id: 'rivers-layer', paintKey: 'line-opacity' }], source: 'rivers', ui: 'rivers', defaultOpacity: 1 },
-        { layers: [{ id: 'education-layer', paintKey: 'circle-opacity' }], source: 'education', ui: 'education', defaultOpacity: 0.85 },
-        { layers: [{ id: 'health-layer', paintKey: 'circle-opacity' }], source: 'health', ui: 'health', defaultOpacity: 0.85 },
-        { layers: [{ id: 'restaurants-layer', paintKey: 'circle-opacity' }], source: 'restaurants', ui: 'restaurants', defaultOpacity: 0.85 },
-        { layers: [{ id: 'tourism-layer', paintKey: 'circle-opacity' }], source: 'tourism', ui: 'tourism', defaultOpacity: 0.85 },
-        { layers: [{ id: 'transportation-layer', paintKey: 'circle-opacity' }], source: 'transportation', ui: 'transportation', defaultOpacity: 0.85 },
-        { layers: [{ id: 'salzburg-boundaries-outline', paintKey: 'line-opacity' }], source: 'salzburg-boundaries', ui: 'salzburg-boundaries', defaultOpacity: 1 }
+        { layers: [{ id: 'roads-layer', paintKey: 'line-opacity' }], source: 'roads', ui: 'roads', defaultOpacity: 1 },
+        { layers: [{ id: 'glacier-points-layer', paintKey: 'circle-opacity' }], source: 'glacier-points', ui: 'glacier-points', defaultOpacity: 0.9 },
+        { layers: [{ id: 'peaks-layer', paintKey: 'circle-opacity' }], source: 'peaks', ui: 'peaks', defaultOpacity: 0.95 },
+        { layers: [{ id: 'settlements-layer', paintKey: 'circle-opacity' }], source: 'settlements', ui: 'settlements', defaultOpacity: 0.9 },
+        { layers: [{ id: 'airports-layer', paintKey: 'circle-opacity' }], source: 'airports', ui: 'airports', defaultOpacity: 0.95 }
       ];
 
       function applyLayout(layersDef, visible) {
@@ -2404,8 +2228,8 @@
         }
       });
 
-      // Ensure Salzburg fill stays invisible (only outline used)
-      try { applyLayout(['salzburg-boundaries-layer'], false); } catch (e) {}
+      // Ensure municipality fill (if present) stays invisible (we prefer outline only)
+      try { applyLayout(['municipalities-fill'], false); } catch (e) {}
 
       // Wire marker show/hide
       function setMarkerDisplay(markerObj, visible) {

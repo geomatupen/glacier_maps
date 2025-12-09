@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"name": "peaks",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "OBJECTID": 45, "SEL": 7937, "FCODE": 20310, "NAME": "Annapurna II", "SHOW1M": 1, "LABEL": "Annapurna II (7937)" }, "geometry": { "type": "Point", "coordinates": [ 84.122107104357525, 28.534990982010843 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 177, "SEL": 7864, "FCODE": 20310, "NAME": "Nuptse", "SHOW1M": 1, "LABEL": "Nuptse (7864)" }, "geometry": { "type": "Point", "coordinates": [ 86.887179522126388, 27.966921353028908 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 190, "SEL": 6814, "FCODE": 20310, "NAME": "Ama Dablang", "SHOW1M": 1, "LABEL": "Ama Dablang (6814)" }, "geometry": { "type": "Point", "coordinates": [ 86.861764972528633, 27.861237817748176 ] } }
+]
+}

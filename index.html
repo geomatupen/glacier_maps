@@ -877,7 +877,7 @@
       style: 'https://demotiles.maplibre.org/style.json',
       center: [ 85.8, 27.5],
       zoom: 10,
-      pitch: 45
+      pitch: 0  // Start with 0 pitch, enable 3D only after terrain loads
     });
 
     // ------------------------- Simple Nominatim search -------------------------
@@ -961,22 +961,49 @@
       // Add all GeoJSON sources
     // ------------------------------------choropleth layer------------------------------------  //
     // Add DEM source + enable 3D terrain, then GeoJSON source and layers
+    
+    // Add error event listener to catch tile loading failures
+    map.on('error', (e) => {
+      // Suppress 404 errors from tile loading (they're not critical)
+      if (e.error && e.error.status === 404) {
+        console.debug('Tile not found (404):', e.error.url);
+        return;
+      }
+      if (e.error && e.error.message && e.error.message.includes('wrap')) {
+        console.debug('Terrain wrap error (non-critical):', e.error.message);
+        return;
+      }
+      console.warn('Map error:', e);
+    });
+
     map.on("load", () => {
       // Add a raster-dem source using the free Terrarium tiles hosted on S3.
       // This source does not require an API key and uses the "terrarium" encoding.
-      map.addSource('dem', {
-        type: 'raster-dem',
-        tiles: [
-          'https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'
-        ],
-        tileSize: 256,
-        maxzoom: 15,
-        encoding: 'terrarium'
-      });
+      try {
+        map.addSource('dem', {
+          type: 'raster-dem',
+          tiles: [
+            'https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'
+          ],
+          tileSize: 256,
+          maxzoom: 15,
+          encoding: 'terrarium'
+        });
 
-      // Enable 3D terrain and raise exaggeration so relief is visible.
-      // Increase the `exaggeration` value if you want a stronger effect.
-      map.setTerrain({ source: 'dem', exaggeration: 1.2});
+        // Enable 3D terrain after a short delay to ensure source is ready
+        // Increase the `exaggeration` value if you want a stronger effect.
+        setTimeout(() => {
+          try {
+            map.setTerrain({ source: 'dem', exaggeration: 1.2});
+            map.setPitch(45); // Enable 3D perspective after terrain is loaded
+          } catch (e) {
+            console.warn('Failed to enable terrain:', e);
+          }
+        }, 500);
+      } catch (e) {
+        console.warn('Failed to add DEM source:', e);
+        // Continue without terrain if DEM fails
+      }
 
       // Note: removed sky layer because this MapLibre build may not support 'sky' layer type.
       // Leaving terrain enabled but skipping the sky layer to avoid style validation errors.
@@ -1147,7 +1174,14 @@
 
         toggle3d.addEventListener('change', function() {
           if (this.checked) {
-            try { map.setTerrain({ source: 'dem', exaggeration: 1.2 }); } catch (e) {}
+            try { 
+              // Only set terrain if DEM source exists
+              if (map.getSource('dem')) {
+                map.setTerrain({ source: 'dem', exaggeration: 1.2 }); 
+              }
+            } catch (e) {
+              console.debug('Terrain toggle on failed:', e);
+            }
             map.easeTo({ pitch: 45, duration: 600 });
           } else {
             try { map.setTerrain(null); } catch (e) {}
@@ -1443,10 +1477,10 @@
     // ---------------------- Glacier navigation ----------------------
     // Define glacier locations in WGS84 (EPSG:4326) converted from glacier_points.geojson (EPSG:32645)
     const glacierLocations = {
-      thulagi: { name: 'Thulagi Glacial Lake', lat: 28.507324, lng: 84.481882 },
-      lumding: { name: 'Lumding Tsho Glacial Lake', lat: 27.786883, lng: 86.596030 },
-      hongu: { name: 'Hongu 2 Glacial Lake', lat: 27.790722, lng: 86.944185 },
-      barun: { name: 'Lower Barun Glacial Lake', lat: 27.809898, lng: 87.067743 }
+      thulagi: { name: 'Thulagi Glacial Lake', lat: 28.507324, lng: 84.531882 },
+      lumding: { name: 'Lumding Tsho Glacial Lake', lat: 27.786883, lng: 86.646030 },
+      hongu: { name: 'Hongu 2 Glacial Lake', lat: 27.790722, lng: 86.964185 },
+      barun: { name: 'Lower Barun Glacial Lake', lat: 27.809898, lng: 87.117743 }
     };
 
     const glacierButtons = {
@@ -1487,12 +1521,26 @@
     Object.keys(glacierButtons).forEach(key => {
       const btn = glacierButtons[key];
       if (btn) {
-        btn.addEventListener('click', () => flyToGlacier(key));
+        btn.addEventListener('click', () => {
+          if (map.isMoving()) {
+            console.debug('Map is moving, skipping glacier navigation');
+            return;
+          }
+          flyToGlacier(key);
+        });
       }
     });
 
-    // Default to Thulagi on page load
-    flyToGlacier('thulagi');
+    // Default to Thulagi on page load - wait until map is fully loaded
+    map.once('load', () => {
+      setTimeout(() => {
+        try {
+          flyToGlacier('thulagi');
+        } catch (e) {
+          console.warn('Failed to fly to default glacier location:', e);
+        }
+      }, 800);
+    });
     // Export / Locate / Zoom functions (used by map controls)
     function exportMapPNG() {
       // kept for backwards compatibility

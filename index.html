@@ -188,9 +188,7 @@
     /* Keep the color-binding rule only inside #layer-panel (higher specificity). */
     #layer-panel .switch input[type="checkbox"]:checked + .switch-track { background: #2A77ED !important; background-image: none !important; }
     label input[type="checkbox"] + .relative .switch-bg { background: #d9d9d9 !important; background-image: none !important; }
-     /* Position helper for proximity button placed to the right of the search box.
-       Calculation: left offset of search container (left-20 = 5rem) + width (w-80 = 20rem) + gap 0.5rem = 25.5rem */
-     .proximity-right { left: calc(25.5rem); }
+
      /* Welcome popup overlay: ensure a semi-opaque dark veil behind the modal so it stands out
        (some utility classes can make it appear fully transparent depending on cascade; enforce here).
        Also ensure the modal sits above other fixed UI elements (scalebar, controls) by increasing z-index. */
@@ -199,6 +197,19 @@
      .rounded-lg-top {
         border-top-left-radius: 0.5rem;
         border-top-right-radius: 0.5rem;
+     }
+     
+     /* Glacier navigation button styling */
+     .glacier-nav-btn {
+       font-size: 0.75rem;
+       padding: 0.5rem 0.75rem;
+       border-radius: 0.375rem;
+       cursor: pointer;
+       transition: all 0.2s ease;
+     }
+     .glacier-nav-btn:hover {
+       opacity: 0.9;
+       transform: translateY(-2px);
      }
   </style>
   <style>
@@ -495,9 +506,12 @@
     <div id="search-results" class="mt-2 bg-white rounded-md shadow-lg max-h-56 overflow-auto"></div>
   </div>
 
-  <!-- Proximity button placed to the right of the search container (whole button) -->
-  <div id="proximity-btn-container" class="absolute top-3 z-30 proximity-right">
-    <button id="proximity-open" class="btn-secondary icon-btn text-xs" title="Open proximity analysis">Proximity</button>
+  <!-- Glacier location buttons placed to the right of the search container -->
+  <div id="glacier-nav-container" class="absolute top-3 z-30 proximity-right flex gap-2">
+    <button id="glacier-thulagi" class="glacier-nav-btn btn-primary text-xs" data-lat="3155989.233825623989105" data-lng="253537.999010940635344" title="Fly to Thulagi">Thulagi</button>
+    <button id="glacier-lumding" class="glacier-nav-btn btn-secondary text-xs" data-lat="3073660.047799039166421" data-lng="460202.546739136625547" title="Fly to Lumding Tsho">Lumding Tsho</button>
+    <button id="glacier-hongu" class="glacier-nav-btn btn-secondary text-xs" data-lat="3074021.159193958621472" data-lng="494501.526746176823508" title="Fly to Hongu2">Hongu2</button>
+    <button id="glacier-barun" class="glacier-nav-btn btn-secondary text-xs" data-lat="3076145.972370715346187" data-lng="506672.294215411704499" title="Fly to Lower Barun">Lower Barun</button>
   </div>
 
   <!-- Legend (draggable + minimizable) -->
@@ -561,31 +575,7 @@
     </div>
   </div>
 
-    <div id="proximity-panel" class="hidden absolute left-40 top-16 z-40 w-80 bg-white rounded-lg shadow-xl p-4 text-xxs">
-      <div class="flex justify-between items-center mb-2">
-        <strong class="text-xs">Proximity Analysis</strong>
-        <button id="proximity-close" class="btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center">✕</button>
-      </div>
-      <div class="text-xxs text-gray-500 mb-2">Click <strong>Set center</strong> then click the map to pick the center point.</div>
-      <div class="mb-2">
-        <button id="proximity-set-center" class="btn-tertiary w-full justify-center text-xs">Set center</button>
-      </div>
-      <div id="proximity-info" class="text-xxs text-gray-600 mb-2">Center: —  Radius: —</div>
-      <div class="flex gap-2 mb-2">
-        <input id="proximity-radius" type="number" min="10" value="5000" class="px-2 py-1 border border-gray-200 rounded-md bg-white text-xs focus:outline-none focus:ring-2 focus:ring-sky-200 flex-1" />
-        <select id="proximity-units" class="px-2 py-1 border border-gray-200 rounded-md bg-white text-xs focus:outline-none focus:ring-2 focus:ring-sky-200">
-          <option value="meters">m</option>
-          <option value="kilometers">km</option>
-        </select>
-      </div>
-      <div class="mb-2">
-        <button id="proximity-run" class="btn-primary w-full justify-center text-xs" disabled>Run</button>
-      </div>
-      <div id="proximity-summary" class="text-xxs text-gray-700 max-h-56 overflow-auto border-t pt-2"></div>
-        <div class="flex justify-end mt-3">
-        <button id="proximity-clear" class="btn-tertiary text-xs">Clear</button>
-      </div>
-    </div>
+
   <!-- Webmap Title: top right, above layer panel -->
   
   <div id="layer-panel" class="draggable-panel layer-panel absolute right-3 top-3 w-1/4 max-w-md z-20 h-screen flex flex-col bg-white/95 shadow-lg rounded-lg pb-4">
@@ -2658,6 +2648,39 @@
       if (mDefault) mDefault.addEventListener('change', (e) => { if (typeof markerDefault !== 'undefined') setMarkerDisplay(markerDefault, e.target.checked); });
       if (mPng) mPng.addEventListener('change', (e) => { if (typeof markerPNG !== 'undefined') setMarkerDisplay(markerPNG, e.target.checked); });
       if (mHtml) mHtml.addEventListener('change', (e) => { if (typeof markerHTML !== 'undefined') setMarkerDisplay(markerHTML, e.target.checked); });
+
+      // Glacier navigation: wire glacier location buttons with fly-to and active state
+      const glacierButtons = document.querySelectorAll('.glacier-nav-btn');
+      function flyToGlacier(btn) {
+        const lat = parseFloat(btn.dataset.lat);
+        const lng = parseFloat(btn.dataset.lng);
+        // Reproject from UTM (EPSG:32645) to WGS84 (EPSG:4326)
+        if (typeof proj4 !== 'undefined') {
+          try {
+            const coords = proj4('EPSG:32645', 'EPSG:4326', [lng, lat]);
+            map.flyTo({ center: coords, zoom: 12, duration: 1500 });
+          } catch (e) {
+            console.warn('Reprojection failed for glacier coords:', e);
+          }
+        } else {
+          console.warn('proj4 not available for glacier navigation');
+        }
+        // Update active button state
+        glacierButtons.forEach(b => b.classList.remove('btn-primary'));
+        glacierButtons.forEach(b => b.classList.add('btn-secondary'));
+        btn.classList.remove('btn-secondary');
+        btn.classList.add('btn-primary');
+      }
+      
+      glacierButtons.forEach(btn => {
+        btn.addEventListener('click', () => flyToGlacier(btn));
+      });
+      
+      // Default to Thulagi on load
+      const thulagiBtn = document.getElementById('glacier-thulagi');
+      if (thulagiBtn) {
+        flyToGlacier(thulagiBtn);
+      }
 
     });
 

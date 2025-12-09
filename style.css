@@ -1,0 +1,10 @@
+/* style.css: deprecated
+   Most layout and component styles have been migrated to Tailwind utility classes
+   inside `index.html`. This file is intentionally kept minimal to avoid breaking
+   references from the HTML while keeping visual rules centralized in Tailwind.
+
+   If you want to fully remove this file, delete the <link rel="stylesheet" href="style.css">
+   reference in `index.html` after confirming the UI in-browser.
+*/
+
+/* No runtime rules required here — Tailwind utilities used throughout the app. */

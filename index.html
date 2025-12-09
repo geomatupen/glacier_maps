@@ -2203,17 +2203,41 @@
         const textField = cfg.labelPropertyFallback ? ['coalesce', ['get', cfg.labelProperty], ['get', cfg.labelPropertyFallback], ''] : ['coalesce', ['get', cfg.labelProperty], ''];
 
         try {
+          // detect underlying layer type (if possible) to choose placement
+          let layout = {
+            'text-field': textField,
+            'text-size': 12,
+            'visibility': 'none',
+            'text-allow-overlap': false,
+            'text-variable-anchor': ['top', 'bottom', 'left', 'right']
+          };
+          try {
+            const firstLayer = (cfg.layers && cfg.layers[0]) ? (typeof cfg.layers[0] === 'string' ? cfg.layers[0] : cfg.layers[0].id) : null;
+            if (firstLayer && map.getLayer(firstLayer)) {
+              const ltype = map.getLayer(firstLayer).type;
+              if (ltype === 'line') {
+                // place labels along the line and follow curvature
+                layout = {
+                  'text-field': textField,
+                  'text-size': 12,
+                  'visibility': 'none',
+                  'symbol-placement': 'line',
+                  'text-rotation-alignment': 'map',
+                  'text-pitch-alignment': 'map',
+                  'text-keep-upright': true,
+                  // allow some curvature before breaking the line into segments
+                  'text-max-angle': 45,
+                  'text-allow-overlap': false
+                };
+              }
+            }
+          } catch (e) {}
+
           map.addLayer({
             id: labelId,
             type: 'symbol',
             source: cfg.source,
-            layout: {
-              'text-field': textField,
-              'text-size': 12,
-              'visibility': 'none',
-              'text-allow-overlap': false,
-              'text-variable-anchor': ['top', 'bottom', 'left', 'right']
-            },
+            layout: layout,
             paint: {
               'text-color': '#17202A',
               'text-halo-color': '#ffffff',

@@ -847,12 +847,8 @@
     // Use a minimal/empty style so our raster OSM layer becomes the visible basemap
     const map = new maplibregl.Map({
       container: "map",
-      style: {
-        version: 8,
-        glyphs: 'https://demotiles.maplibre.org/fonts/{fontstack}/{range}.pbf',
-        sources: {},
-        layers: []
-      },
+      // Use the public MapLibre demo style which includes a working `glyphs` URL
+      style: 'https://demotiles.maplibre.org/style.json',
       center: [ 85.8, 27.5],
       zoom: 10,
       pitch: 45
@@ -2180,7 +2176,9 @@
             paint: {
               'text-color': '#17202A',
               'text-halo-color': '#ffffff',
-              'text-halo-width': 1,
+              // use a slightly larger halo and zero blur for a crisp halo over imagery
+              'text-halo-width': 2,
+              'text-halo-blur': 0,
               'text-opacity': 1
             }
           });
@@ -2227,18 +2225,40 @@
               else coord = turf.centroid(feature).geometry.coordinates;
             } catch (e) { return null; }
 
+            // Create a blurred white shadow element behind the label (cross-browser halo)
+            const shadow = document.createElement('div');
+            shadow.className = 'map-dom-label-shadow';
+            shadow.textContent = String(txt);
+            shadow.style.position = 'absolute';
+            // Position the shadow exactly like the label but scale it slightly larger
+            shadow.style.transform = 'translate(-50%,-100%) scale(1.12)';
+            shadow.style.transformOrigin = '50% 100%';
+            shadow.style.whiteSpace = 'nowrap';
+            shadow.style.fontSize = '12px';
+            shadow.style.color = '#ffffff';
+            // shadow.style.filter = 'blur(2px)';
+            shadow.style.opacity = '1';
+            shadow.style.pointerEvents = 'none';
+            shadow.style.zIndex = '0';
+            wrapper.appendChild(shadow);
+
             const el = document.createElement('div');
             el.className = 'map-dom-label';
             el.textContent = String(txt);
             el.style.position = 'absolute';
             el.style.transform = 'translate(-50%,-100%)';
+            el.style.transformOrigin = '50% 100%';
             el.style.whiteSpace = 'nowrap';
             el.style.fontSize = '12px';
             el.style.color = '#17202A';
-            el.style.textShadow = '0 0 4px #fff, 0 0 4px #fff';
+            el.style.fontWeight = '600';
+            el.style.opacity = '1';
             el.style.pointerEvents = 'none';
+            el.style.zIndex = '1';
             wrapper.appendChild(el);
-            items.push({ el, coord });
+            // make the shadow visually thicker
+            shadow.style.fontWeight = '700';
+            items.push({ el, shadow, coord });
             return el;
           }
 
@@ -2248,8 +2268,14 @@
             try {
               items.forEach(item => {
                 const p = map.project(item.coord);
-                item.el.style.left = p.x + 'px';
-                item.el.style.top = p.y + 'px';
+                if (item.shadow) {
+                  item.shadow.style.left = p.x + 'px';
+                  item.shadow.style.top = p.y + 'px';
+                }
+                if (item.el) {
+                  item.el.style.left = p.x + 'px';
+                  item.el.style.top = p.y + 'px';
+                }
               });
             } catch (e) {}
           };
@@ -2340,18 +2366,33 @@
             labelsEl.title = `Labels: ${cfg.labelProperty}`;
           }
 
-          // Use DOM fallback labels by default to avoid font/glyph server errors.
+          // Try to create a MapLibre symbol label layer first. If that fails (no glyphs
+          // or source not yet loaded), fall back to the DOM label renderer.
           labelsEl.addEventListener('change', (ev) => {
             const enable = ev.target.checked;
+            const labelLayerId = `${cfg.ui}-labels-layer`;
             if (enable) {
+              // Try symbol layer creation / visibility
+              const symOk = ensureLabelLayer(cfg);
+              if (symOk && map.getLayer(labelLayerId)) {
+                try { map.setLayoutProperty(labelLayerId, 'visibility', 'visible'); } catch (e) {}
+                // remove any existing DOM labels if present
+                try { removeDomLabelLayer(cfg); } catch (e) {}
+                return;
+              }
+
+              // Fallback to DOM labels when symbol layer cannot be created yet
               const ok = createDomLabelLayer(cfg);
               if (!ok) {
                 ev.target.checked = false;
                 ev.target.disabled = true;
                 ev.target.title = 'Could not create labels: source may not be loaded yet.';
-                console.warn('DOM label creation failed for', cfg.ui);
+                console.warn('Label creation failed for', cfg.ui);
               }
             } else {
+              // hide symbol labels if present
+              try { if (map.getLayer(labelLayerId)) map.setLayoutProperty(labelLayerId, 'visibility', 'none'); } catch (e) {}
+              // remove DOM labels if present
               try { removeDomLabelLayer(cfg); } catch (e) {}
             }
           });

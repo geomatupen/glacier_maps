@@ -2,22 +2,23 @@
   <div id="welcome-popup" class="fixed inset-0 z-50 flex items-center justify-center bg-black/20">
     <div class="bg-white/80 backdrop-blur-md max-w-2xl w-full p-6 rounded-xl shadow-2xl relative text-slate-800 overflow-auto max-h-screen text-xxs">
       <button id="welcome-close" aria-label="Close welcome popup" class="btn-tertiary w-8 h-8 p-0 absolute top-3 right-3">&times;</button>
-      <h2 class="text-md font-semibold mb-3 text-primary">Welcome to MeinSalzburg!</h2>
-      <img src="logo/Salzburg.jpg" alt="Salzburg" class="w-full rounded-md shadow-sm object-cover mb-4" />
-      <p class="text-xxs mb-3">This interactive map is your gateway to exploring and analyzing public services and amenities throughout the city of Salzburg.</p>
-      <h3 class="font-semibold text-xs">What you can do here</h3>
+      <h2 class="text-md font-semibold mb-3 text-primary">Glacial Lakes: A Rapid Survey Mission</h2>
+      <p class="text-xxs mb-3"><strong>A Project to Protect Communities in the Nepal Himalaya</strong></p>
+      <p class="text-xxs mb-3">In 2019, I joined a small team of experts as a project coordinator and drone pilot on a rapid mission to photograph four potentially dangerous glacial lakes in the Nepal Himalaya. Using an innovative approach, we mounted a drone inside a rescue helicopter and flew above 4,500–5,000 meters to capture the rocky dams that hold these lakes in place. We were able to reduce around 3 months of survey work to just 4 days.</p>
+      
+      <h3 class="font-semibold text-xs mt-3 mb-2">The Mission in the Sky</h3>
+      <p class="text-xxs mb-3">For the actual survey, only the helicopter pilot and I stayed onboard. I sat with the drone controller while she flew through narrow valleys and strong winds. I gave voice commands like "left a little," "hold this line" while monitoring the controller and GPS tracks. The drone captured a photo every two seconds through the transparent window at the bottom. The turbulence was intense at times, but we managed to cover the full end-moraines, which was the most important part of the mission.</p>
+      
+      <h3 class="font-semibold text-xs mt-3 mb-2">Why We Mounted the Drone Inside the Helicopter</h3>
       <ul class="list-disc pl-5 text-xxs space-y-1 mb-3">
-        <li><strong>Explore:</strong> Click on points of interest to see details.</li>
-
-        <li><strong>Plan:</strong> Find nearby services and plan routes.</li>
+        <li>Reaching a single lake on foot would take around 7+ days</li>
+        <li>High altitude (4,500–5,200m) meant the helicopter had to stay light and fast, with areas having no safe landing spots</li>
+        <li>Weather changes very quickly at this altitude, giving us only a short morning window</li>
+        <li>Some lakes were too windy or steep for safe drone takeoff/landing from the ground</li>
       </ul>
-      <h3 class="font-semibold text-xs">How to use it</h3>
-      <ul class="list-disc pl-5 text-xxs space-y-1 mb-4">
-        <li>Search for an address or pan the map.</li>
-        <li>Select an amenity type from the menu.</li>
-        <li>Use "Draw Area" or "Nearest Search" to define distance.</li>
-      </ul>
-      <p class="text-xxs text-gray-500 mb-4">Built on open data to support residents, visitors, researchers, and urban planners.</p>
+      
+      <h3 class="font-semibold text-xs mt-3 mb-2">Impact & Results</h3>
+      <p class="text-xxs mb-3">The images from this photogrammetric survey were processed into detailed topographic models, giving civil engineers the data they needed to design practical interventions to lower each lake to a safer level. These results were later used in a proposal to the Green Climate Fund (GCF), prepared jointly by UNDP and the Department of Hydrology and Meteorology (DHM). The proposal secured USD 36.1 million for lake-lowering and downstream safety interventions, with funding officially approved in 2025. Once completed, this work is expected to help protect thousands of lives and livelihoods in communities living downstream.</p>
         <div class="flex justify-end gap-3">
         <button id="welcome-skip" class="btn-tertiary text-xs">Skip</button>
         <button id="welcome-no-show" class="btn-primary text-xs">Don't show again</button>
@@ -52,7 +53,7 @@
 <html class="h-full">
 <head>
   <meta charset="utf-8" />
-  <title>Salzburg</title>
+  <title>Glacial Lakes</title>
   <link
     href="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.css"
     rel="stylesheet"
@@ -498,20 +499,19 @@
 </head>
 <body class="h-full overflow-hidden font-sans">
   <div id="map" class="w-full h-screen"></div>
-  <div id="search-container" class="absolute left-20 top-3 z-30 w-80">
-    <div class="relative">
-      <input id="search-input" type="search" placeholder="Search place or address..." autocomplete="off" class="px-3 py-2 border border-gray-200 rounded-md bg-white text-xs focus:outline-none focus:ring-2 focus:ring-sky-200 w-full h-9 pr-3" />
+  <div id="search-container" class="absolute left-20 top-3 z-30 w-auto">
+    <div class="relative flex gap-2 items-start">
+      <input id="search-input" type="search" placeholder="Search place or address..." autocomplete="off" class="px-3 py-2 border border-gray-200 rounded-md bg-white text-xs focus:outline-none focus:ring-2 focus:ring-sky-200 h-9 w-64" />
+      <!-- Glacier location buttons right after search bar -->
+      <div id="glacier-nav-container" class="flex gap-1">
+        <button id="glacier-thulagi" class="glacier-nav-btn btn-primary text-xs" title="Fly to Thulagi">Thulagi</button>
+        <button id="glacier-lumding" class="glacier-nav-btn btn-secondary text-xs" title="Fly to Lumding Tsho">Lumding Tsho</button>
+        <button id="glacier-hongu" class="glacier-nav-btn btn-secondary text-xs" title="Fly to Hongu2">Hongu2</button>
+        <button id="glacier-barun" class="glacier-nav-btn btn-secondary text-xs" title="Fly to Lower Barun">Lower Barun</button>
+      </div>
     </div>
     <div id="search-results" class="mt-2 bg-white rounded-md shadow-lg max-h-56 overflow-auto"></div>
   </div>
-
-  <!-- Glacier location buttons placed to the right of the search container -->
-    <div id="glacier-nav-container" class="absolute top-3 right-0 z-30 flex gap-2 pr-3">
-      <button id="glacier-thulagi" class="glacier-nav-btn btn-primary text-xs" title="Fly to Thulagi">Thulagi</button>
-      <button id="glacier-lumding" class="glacier-nav-btn btn-secondary text-xs" title="Fly to Lumding Tsho">Lumding Tsho</button>
-      <button id="glacier-hongu" class="glacier-nav-btn btn-secondary text-xs" title="Fly to Hongu2">Hongu2</button>
-      <button id="glacier-barun" class="glacier-nav-btn btn-secondary text-xs" title="Fly to Lower Barun">Lower Barun</button>
-    </div>  <!-- Legend (draggable + minimizable) -->
   <div id="map-legend" class="draggable-panel map-legend absolute left-3 bottom-3 w-56 max-w-xs z-20 bg-white rounded-lg shadow-lg" role="dialog" aria-label="Map legend">
     <div class="panel-header flex items-center justify-between p-3 pb-1 pt-1 border-b border-gray-100">
       <strong class="text-xs">Legend</strong>
@@ -2056,7 +2056,7 @@
         { layers: [{ id: 'glaciers-fill', paintKey: 'fill-opacity' }, { id: 'glaciers-outline', paintKey: 'line-opacity' }], source: 'glaciers', ui: 'glaciers', defaultOpacity: 0.25, labelProperty: 'Id' },
         { layers: [{ id: 'glacial-lakes-fill', paintKey: 'fill-opacity' }, { id: 'glacial-lakes-outline', paintKey: 'line-opacity' }], source: 'glacial-lakes', ui: 'glacial-lakes', defaultOpacity: 0.35, labelProperty: 'Id' },
         { layers: [{ id: 'protected-areas-fill', paintKey: 'fill-opacity' }, { id: 'protected-areas-outline', paintKey: 'line-opacity' }], source: 'protected-areas', ui: 'protected-areas', defaultOpacity: 0.14, labelProperty: 'DAN' },
-        { layers: [{ id: 'municipalities-outline', paintKey: 'line-opacity' }], source: 'municipalities', ui: 'municipalities', defaultOpacity: 1, labelProperty: 'LU_Name' },
+        { layers: [{ id: 'municipalities-fill', paintKey: 'fill-opacity' }, { id: 'municipalities-outline', paintKey: 'line-opacity' }], source: 'municipalities', ui: 'municipalities', defaultOpacity: 0.06, labelProperty: 'LU_Name' },
         { layers: [{ id: 'rivers-layer', paintKey: 'line-opacity' }], source: 'rivers', ui: 'rivers', defaultOpacity: 1, labelProperty: 'RIV_NAME' },
         { layers: [{ id: 'roads-layer', paintKey: 'line-opacity' }], source: 'roads', ui: 'roads', defaultOpacity: 1, labelProperty: 'NAME' },
         { layers: [{ id: 'glacier-points-layer', paintKey: 'circle-opacity' }], source: 'glacier-points', ui: 'glacier-points', defaultOpacity: 0.9, labelProperty: 'Name' },
@@ -2400,9 +2400,6 @@
         }
       });
 
-      // Ensure municipality fill (if present) stays invisible (we prefer outline only)
-      try { applyLayout(['municipalities-fill'], false); } catch (e) {}
-
       // Build a legend from the actual layer paint properties so swatches match the map
       function createLegendFromLayers() {
         const items = [
@@ -2415,7 +2412,7 @@
           { label: 'Settlements', layerId: 'settlements-layer', type: 'circle', ui: 'settlements' },
           { label: 'Peaks', layerId: 'peaks-layer', type: 'circle', ui: 'peaks' },
           { label: 'Airports', layerId: 'airports-layer', type: 'circle', ui: 'airports' },
-          { label: 'Municipalities', layerId: 'municipalities-outline', type: 'fill', outlineId: 'municipalities-outline', ui: 'municipalities' }
+          { label: 'Municipalities', layerId: 'municipalities-fill', type: 'fill', outlineId: 'municipalities-outline', ui: 'municipalities' }
         ];
 
         const body = document.querySelector('#map-legend .panel-body');

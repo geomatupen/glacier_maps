@@ -2336,7 +2336,8 @@
         }
 
         if (labelsEl) {
-          labelsEl.checked = false; // labels off by default
+          // Enable labels by default only for glacier points; others remain off
+          labelsEl.checked = (cfg.ui === 'glacier-points');
 
           // If a source was already loaded, try to auto-detect a good label property.
           const loaded = window._loadedSources && window._loadedSources[cfg.source];
@@ -2364,6 +2365,24 @@
           } else {
             labelsEl.disabled = false;
             labelsEl.title = `Labels: ${cfg.labelProperty}`;
+
+            // If this checkbox is pre-checked (glacier points), attempt to create labels now.
+            if (labelsEl.checked) {
+              const labelLayerId = `${cfg.ui}-labels-layer`;
+              const symOk = ensureLabelLayer(cfg);
+              if (symOk && map.getLayer(labelLayerId)) {
+                try { map.setLayoutProperty(labelLayerId, 'visibility', 'visible'); } catch (e) {}
+                try { removeDomLabelLayer(cfg); } catch (e) {}
+              } else {
+                const ok = createDomLabelLayer(cfg);
+                if (!ok) {
+                  labelsEl.checked = false;
+                  labelsEl.disabled = true;
+                  labelsEl.title = 'Could not create labels: source may not be loaded yet.';
+                  console.warn('Initial label creation failed for', cfg.ui);
+                }
+              }
+            }
           }
 
           // Try to create a MapLibre symbol label layer first. If that fails (no glyphs

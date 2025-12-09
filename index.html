@@ -572,8 +572,8 @@
         </div>
         <div class="mb-3">
           <div class="flex flex-col gap-2 pb-2">
-            <label class="flex items-center gap-3"><input type="radio" name="basemap" value="street" id="basemap-street-radio" checked> <span class="text-xs text-gray-600">Street</span></label>
-            <label class="flex items-center gap-3"><input type="radio" name="basemap" value="satellite" id="basemap-sat-radio"> <span class="text-xs text-gray-600">Satellite</span></label>
+            <label class="flex items-center gap-3"><input type="radio" name="basemap" value="street" id="basemap-street-radio"> <span class="text-xs text-gray-600">Street</span></label>
+            <label class="flex items-center gap-3"><input type="radio" name="basemap" value="satellite" id="basemap-sat-radio" checked> <span class="text-xs text-gray-600">Satellite</span></label>
           </div>
         </div>
 
@@ -585,7 +585,8 @@
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-glaciers-opacity" min="0" max="1" step="0.05" value="0.25" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-glaciers-labels"></label>
+          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-glaciers-opacity" min="0" max="1" step="0.05" value="0.25" class="ml-3 w-full"></label>
         </div>
 
         <!-- Glacial lakes (polygons) -->
@@ -594,7 +595,8 @@
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-glacial-lakes-opacity" min="0" max="1" step="0.05" value="0.35" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-glacial-lakes-labels"></label>
+          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-glacial-lakes-opacity" min="0" max="1" step="0.05" value="0.35" class="ml-3 w-full"></label>
         </div>
 
         <!-- Glacier points -->
@@ -603,7 +605,8 @@
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-glacier-points-opacity" min="0" max="1" step="0.05" value="0.9" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-glacier-points-labels"></label>
+          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-glacier-points-opacity" min="0" max="1" step="0.05" value="0.9" class="ml-3 w-full"></label>
         </div>
 
         <!-- Peaks (points) -->
@@ -612,7 +615,8 @@
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-peaks-opacity" min="0" max="1" step="0.05" value="0.9" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-peaks-labels"></label>
+          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-peaks-opacity" min="0" max="1" step="0.05" value="0.9" class="ml-3 w-full"></label>
         </div>
 
         <!-- Settlements (points) -->
@@ -621,7 +625,8 @@
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-settlements-opacity" min="0" max="1" step="0.05" value="0.9" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-settlements-labels"></label>
+          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-settlements-opacity" min="0" max="1" step="0.05" value="0.9" class="ml-3 w-full"></label>
         </div>
 
         <!-- Airports -->
@@ -630,7 +635,8 @@
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-airports-opacity" min="0" max="1" step="0.05" value="0.9" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-airports-labels"></label>
+          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-airports-opacity" min="0" max="1" step="0.05" value="0.9" class="ml-3 w-full"></label>
         </div>
 
         <!-- Protected areas -->
@@ -639,7 +645,8 @@
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-protected-opacity" min="0" max="1" step="0.05" value="0.2" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-protected-labels"></label>
+          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-protected-opacity" min="0" max="1" step="0.05" value="0.2" class="ml-3 w-full"></label>
         </div>
 
         <!-- Rivers -->
@@ -648,7 +655,8 @@
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-rivers-opacity" min="0" max="1" step="0.05" value="1" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-rivers-labels"></label>
+          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-rivers-opacity" min="0" max="1" step="0.05" value="1" class="ml-3 w-full"></label>
         </div>
 
         <!-- Roads -->
@@ -657,7 +665,8 @@
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-roads-opacity" min="0" max="1" step="0.05" value="1" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-roads-labels"></label>
+          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-roads-opacity" min="0" max="1" step="0.05" value="1" class="ml-3 w-full"></label>
         </div>
 
         <!-- Municipalities (boundary) -->
@@ -666,7 +675,8 @@
           <button class="layer-menu-btn btn-tertiary w-8 h-8 p-0 inline-flex items-center justify-center" aria-expanded="false" aria-label="Toggle layer options"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         </div>
         <div class="layer-menu mt-2 bg-white shadow rounded w-full sm:w-72 overflow-hidden transition-all duration-200 max-h-0 opacity-0 -translate-y-1 pointer-events-none p-0">
-          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-municipalities-opacity" min="0" max="1" step="0.05" value="1" class="ml-3 w-full"></label>
+          <label class="flex items-center justify-between gap-2"><span class="text-xxs text-gray-600">Labels</span><input type="checkbox" id="layer-municipalities-labels"></label>
+          <label class="flex items-center justify-between gap-2 mt-2"><span class="text-xxs text-gray-600">Opacity</span><input type="range" id="layer-municipalities-opacity" min="0" max="1" step="0.05" value="1" class="ml-3 w-full"></label>
         </div>
       </div>
 
@@ -839,6 +849,7 @@
       container: "map",
       style: {
         version: 8,
+        glyphs: 'https://demotiles.maplibre.org/fonts/{fontstack}/{range}.pbf',
         sources: {},
         layers: []
       },
@@ -976,15 +987,15 @@
       map.addLayer({
         id: 'basemap-street',
         type: 'raster',
-        source: 'basemap-street-source'
+        source: 'basemap-street-source',
+        layout: { 'visibility': 'none' }
       });
 
       // Add satellite raster layer (hidden by default)
       map.addLayer({
         id: 'basemap-satellite',
         type: 'raster',
-        source: 'basemap-satellite-source',
-        layout: { 'visibility': 'none' }
+        source: 'basemap-satellite-source'
       });
 
       // Create empty GeoJSON sources for the replaced project datasets. We'll fetch and
@@ -1076,12 +1087,16 @@
         { src: 'municipalities', url: 'data/municipalities_clipped.geojson' }
       ];
 
+      // Load each GeoJSON and keep a reference so we can inspect properties per-source later.
+      window._loadedSources = window._loadedSources || {};
       fetchList.forEach(item => {
         fetch(item.url).then(r => r.json()).then(j => {
           try {
             const out = reprojectGeoJSON(j);
             const s = map.getSource(item.src);
             if (s) s.setData(out);
+            // store loaded data for later per-layer label property detection
+            window._loadedSources[item.src] = out;
           } catch (e) { console.warn('Failed to set data for', item.src, e); }
         }).catch(err => { console.warn('Could not load', item.url, err); });
       });
@@ -2092,16 +2107,16 @@
     // Runs once the map is idle so all sources/layers are available.
     map.once('idle', () => {
       const configs = [
-        { layers: [{ id: 'glaciers-fill', paintKey: 'fill-opacity' }, { id: 'glaciers-outline', paintKey: 'line-opacity' }], source: 'glaciers', ui: 'glaciers', defaultOpacity: 0.25 },
-        { layers: [{ id: 'glacial-lakes-fill', paintKey: 'fill-opacity' }, { id: 'glacial-lakes-outline', paintKey: 'line-opacity' }], source: 'glacial-lakes', ui: 'glacial-lakes', defaultOpacity: 0.35 },
-        { layers: [{ id: 'protected-areas-fill', paintKey: 'fill-opacity' }, { id: 'protected-areas-outline', paintKey: 'line-opacity' }], source: 'protected-areas', ui: 'protected-areas', defaultOpacity: 0.14 },
-        { layers: [{ id: 'municipalities-outline', paintKey: 'line-opacity' }], source: 'municipalities', ui: 'municipalities', defaultOpacity: 1 },
-        { layers: [{ id: 'rivers-layer', paintKey: 'line-opacity' }], source: 'rivers', ui: 'rivers', defaultOpacity: 1 },
-        { layers: [{ id: 'roads-layer', paintKey: 'line-opacity' }], source: 'roads', ui: 'roads', defaultOpacity: 1 },
-        { layers: [{ id: 'glacier-points-layer', paintKey: 'circle-opacity' }], source: 'glacier-points', ui: 'glacier-points', defaultOpacity: 0.9 },
-        { layers: [{ id: 'peaks-layer', paintKey: 'circle-opacity' }], source: 'peaks', ui: 'peaks', defaultOpacity: 0.95 },
-        { layers: [{ id: 'settlements-layer', paintKey: 'circle-opacity' }], source: 'settlements', ui: 'settlements', defaultOpacity: 0.9 },
-        { layers: [{ id: 'airports-layer', paintKey: 'circle-opacity' }], source: 'airports', ui: 'airports', defaultOpacity: 0.95 }
+        { layers: [{ id: 'glaciers-fill', paintKey: 'fill-opacity' }, { id: 'glaciers-outline', paintKey: 'line-opacity' }], source: 'glaciers', ui: 'glaciers', defaultOpacity: 0.25, labelProperty: 'Id' },
+        { layers: [{ id: 'glacial-lakes-fill', paintKey: 'fill-opacity' }, { id: 'glacial-lakes-outline', paintKey: 'line-opacity' }], source: 'glacial-lakes', ui: 'glacial-lakes', defaultOpacity: 0.35, labelProperty: 'Id' },
+        { layers: [{ id: 'protected-areas-fill', paintKey: 'fill-opacity' }, { id: 'protected-areas-outline', paintKey: 'line-opacity' }], source: 'protected-areas', ui: 'protected-areas', defaultOpacity: 0.14, labelProperty: 'DAN' },
+        { layers: [{ id: 'municipalities-outline', paintKey: 'line-opacity' }], source: 'municipalities', ui: 'municipalities', defaultOpacity: 1, labelProperty: 'LU_Name' },
+        { layers: [{ id: 'rivers-layer', paintKey: 'line-opacity' }], source: 'rivers', ui: 'rivers', defaultOpacity: 1, labelProperty: 'RIV_NAME' },
+        { layers: [{ id: 'roads-layer', paintKey: 'line-opacity' }], source: 'roads', ui: 'roads', defaultOpacity: 1, labelProperty: 'NAME' },
+        { layers: [{ id: 'glacier-points-layer', paintKey: 'circle-opacity' }], source: 'glacier-points', ui: 'glacier-points', defaultOpacity: 0.9, labelProperty: 'Name' },
+        { layers: [{ id: 'peaks-layer', paintKey: 'circle-opacity' }], source: 'peaks', ui: 'peaks', defaultOpacity: 0.95, labelProperty: 'LABEL', labelPropertyFallback: 'NAME' },
+        { layers: [{ id: 'settlements-layer', paintKey: 'circle-opacity' }], source: 'settlements', ui: 'settlements', defaultOpacity: 0.9, labelProperty: 'Label', labelPropertyFallback: 'VDCNAME' },
+        { layers: [{ id: 'airports-layer', paintKey: 'circle-opacity' }], source: 'airports', ui: 'airports', defaultOpacity: 0.95, labelProperty: 'NAME' }
       ];
 
       function applyLayout(layersDef, visible) {
@@ -2141,16 +2156,26 @@
           return false;
         }
 
+        // Require a label property to exist on the feature properties.
+        if (!cfg.labelProperty) {
+          console.warn('No label property configured for', cfg.ui, '; skipping label layer creation.');
+          return false;
+        }
+
+        // Build a coalesce expression that uses the configured property and optional fallback.
+        const textField = cfg.labelPropertyFallback ? ['coalesce', ['get', cfg.labelProperty], ['get', cfg.labelPropertyFallback], ''] : ['coalesce', ['get', cfg.labelProperty], ''];
+
         try {
           map.addLayer({
             id: labelId,
             type: 'symbol',
             source: cfg.source,
             layout: {
-              'text-field': ['coalesce', ['get', 'name'], ['get', 'NAME'], ''],
+              'text-field': textField,
               'text-size': 12,
               'visibility': 'none',
-              'text-allow-overlap': false
+              'text-allow-overlap': false,
+              'text-variable-anchor': ['top', 'bottom', 'left', 'right']
             },
             paint: {
               'text-color': '#17202A',
@@ -2165,6 +2190,88 @@
           return false;
         }
       }
+
+        // DOM-based label fallback when style glyphs are not available.
+        window._domLabelLayers = window._domLabelLayers || {};
+        function createDomLabelLayer(cfg) {
+          const id = cfg.ui;
+          if (window._domLabelLayers[id]) return true; // already created
+          const src = map.getSource(cfg.source);
+          if (!src) return false;
+          // try to access loaded data; maplibre stores it as _data on the source object
+          const data = src._data || (typeof src.getData === 'function' ? src.getData() : null);
+          if (!data || !data.features) return false;
+
+          const container = map.getContainer();
+          const wrapper = document.createElement('div');
+          wrapper.className = 'map-dom-labels';
+          wrapper.style.position = 'absolute';
+          wrapper.style.top = '0';
+          wrapper.style.left = '0';
+          wrapper.style.width = '100%';
+          wrapper.style.height = '100%';
+          wrapper.style.pointerEvents = 'none';
+          // Keep DOM labels above the map canvas but below UI panels (UI uses z-20).
+          wrapper.style.zIndex = '0';
+          container.appendChild(wrapper);
+
+          const items = [];
+
+          function makeLabel(feature) {
+            const props = feature.properties || {};
+            let txt = props[cfg.labelProperty] || (cfg.labelPropertyFallback && props[cfg.labelPropertyFallback]) || '';
+            if (!txt) return null;
+            let coord = null;
+            try {
+              if (feature.geometry && feature.geometry.type === 'Point') coord = feature.geometry.coordinates;
+              else coord = turf.centroid(feature).geometry.coordinates;
+            } catch (e) { return null; }
+
+            const el = document.createElement('div');
+            el.className = 'map-dom-label';
+            el.textContent = String(txt);
+            el.style.position = 'absolute';
+            el.style.transform = 'translate(-50%,-100%)';
+            el.style.whiteSpace = 'nowrap';
+            el.style.fontSize = '12px';
+            el.style.color = '#17202A';
+            el.style.textShadow = '0 0 4px #fff, 0 0 4px #fff';
+            el.style.pointerEvents = 'none';
+            wrapper.appendChild(el);
+            items.push({ el, coord });
+            return el;
+          }
+
+          data.features.forEach(f => makeLabel(f));
+
+          const updatePositions = function() {
+            try {
+              items.forEach(item => {
+                const p = map.project(item.coord);
+                item.el.style.left = p.x + 'px';
+                item.el.style.top = p.y + 'px';
+              });
+            } catch (e) {}
+          };
+
+          // initial placement and bind handlers
+          updatePositions();
+          map.on('move', updatePositions);
+          map.on('zoom', updatePositions);
+          map.on('resize', updatePositions);
+
+          window._domLabelLayers[id] = { wrapper, items, updatePositions };
+          return true;
+        }
+
+        function removeDomLabelLayer(cfg) {
+          const id = cfg.ui;
+          const rec = window._domLabelLayers && window._domLabelLayers[id];
+          if (!rec) return;
+          try { map.off('move', rec.updatePositions); map.off('zoom', rec.updatePositions); map.off('resize', rec.updatePositions); } catch(e) {}
+          try { rec.wrapper.remove(); } catch (e) {}
+          delete window._domLabelLayers[id];
+        }
 
       // Hook up UI controls
       configs.forEach(cfg => {
@@ -2204,18 +2311,49 @@
 
         if (labelsEl) {
           labelsEl.checked = false; // labels off by default
-          // if glyphs are not available, disable the checkbox and inform user via console
-          labelsEl.addEventListener('change', (ev) => {
-            const created = ensureLabelLayer(cfg);
-            if (!created) {
-              // creation failed (likely missing glyphs) — revert checkbox and notify
-              ev.target.checked = false;
-              ev.target.disabled = true;
-              ev.target.title = 'Label rendering requires a style with `glyphs` configured.';
-              console.warn('Labels unavailable for', cfg.ui, '- style missing glyphs or source unavailable');
-              return;
+
+          // If a source was already loaded, try to auto-detect a good label property.
+          const loaded = window._loadedSources && window._loadedSources[cfg.source];
+          if (!cfg.labelProperty && loaded && loaded.features && loaded.features.length) {
+            const sample = loaded.features.find(f => f && f.properties && Object.keys(f.properties).length);
+            if (sample) {
+              const keys = Object.keys(sample.properties).map(k => k.trim());
+              const prefer = ['LABEL','Label','name','Name','NAME','RIV_NAME','DAN','Id','LU_Name','VDCNAME'];
+              const pick = prefer.find(p => keys.includes(p));
+              if (pick) {
+                cfg.labelProperty = pick;
+              } else if (keys.length) {
+                cfg.labelProperty = keys[0];
+              }
             }
-            applyLayout([labelLayerId], ev.target.checked);
+          }
+
+          // If still no labelProperty, disable the checkbox until one is available.
+          if (!cfg.labelProperty) {
+            labelsEl.disabled = true;
+            labelsEl.title = 'No label attribute available for this dataset.';
+            labelsEl.checked = false;
+            console.info('Labels disabled for', cfg.ui, '- no labelProperty configured');
+            return;
+          } else {
+            labelsEl.disabled = false;
+            labelsEl.title = `Labels: ${cfg.labelProperty}`;
+          }
+
+          // Use DOM fallback labels by default to avoid font/glyph server errors.
+          labelsEl.addEventListener('change', (ev) => {
+            const enable = ev.target.checked;
+            if (enable) {
+              const ok = createDomLabelLayer(cfg);
+              if (!ok) {
+                ev.target.checked = false;
+                ev.target.disabled = true;
+                ev.target.title = 'Could not create labels: source may not be loaded yet.';
+                console.warn('DOM label creation failed for', cfg.ui);
+              }
+            } else {
+              try { removeDomLabelLayer(cfg); } catch (e) {}
+            }
           });
         }
       });
